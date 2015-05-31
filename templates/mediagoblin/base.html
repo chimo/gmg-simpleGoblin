@@ -1,0 +1,111 @@
+{#
+# GNU MediaGoblin -- federated, autonomous media hosting
+# Copyright (C) 2011, 2012 MediaGoblin contributors.  See AUTHORS.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-#}
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{{ app_config['html_title'] }}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <!-- TODO?: Twitter Cards, Open Graph -->
+    <!-- TODO: favicon -->
+
+    <link rel="stylesheet" href="//chromic.org/assets/css/main.css" />
+    <link rel="stylesheet" href="{{ request.staticdirect('/css/styles.css', 'theme') }}" />
+    {% template_hook("head") %}
+
+    <!-- {% block mediagoblin_head %}
+    {% endblock mediagoblin_head %} -->
+  </head>
+  <body>
+    {% block mediagoblin_body %}
+      {% block mediagoblin_header %}
+        <!-- navigation -->
+        <div class="navigation-wrapper">
+          <nav role="navigation" id="site-nav" class="animated drop" itemscope itemtype="http://schema.org/SiteNavigationElement">
+            <ul>
+              <li>
+                 <a href="http://chromic.org/about">About</a>
+              </li>
+              <li>
+                <a href="http://chromic.org/blog/">Blog</a>
+              </li>
+              <li>
+                <a href="http://sn.chromic.org">micro-blog</a>
+              </li>
+              <li>
+                <a href="http://media.chromic.org">Media</a>
+              </li>
+              <li>
+                <a href="http://code.chromic.org">Code</a>
+              </li>
+              <li>
+                <a href="http://fm.chromic.org">fm</a>
+              </li>
+              <!-- <li>
+                <a href="/atom/" title="Atom/RSS feed">
+                  <i class="icon-rss"></i> Feed
+                </a>
+                </li> -->
+              <!-- <li class="dosearch">
+                <i class="icon-search"></i> Search
+              </li> -->
+            </ul>
+          </nav>
+        </div>
+      {% endblock %}
+
+      {% block simple_header %}
+      {% endblock %}
+
+      <!-- main -->
+      <div id="main" role="main" itemprop="mainContentOfPage">
+        <div class="entry-wrapper">
+          <div class="entry-content" itemprop="description">
+            <div class="container">
+              {% include 'mediagoblin/bits/above_content.html' %}
+              <div class="mediagoblin_content">
+                {% include "mediagoblin/utils/messages.html" %}
+                {% block mediagoblin_content %}
+                {% endblock mediagoblin_content %}
+                {% if csrf_token is defined %}
+                  {% template_hook("persona_form") %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="footer-wrapper">
+        <footer role="contentinfo">
+          {%- include "mediagoblin/bits/base_footer.html" %}
+        </footer>
+      </div>
+    {%- endblock mediagoblin_body %}
+    {% include 'mediagoblin/bits/body_end.html' %}
+
+    <!-- js -->
+    <script src="//chromic.org/assets/js/vendor/jquery-1.9.1.min.js"></script>
+    <script src="//chromic.org/assets/js/scripts.min.js"></script>
+    <script src="{{ request.staticdirect('/js/simple.js', 'theme') }}"></script>
+  </body>
+</html>

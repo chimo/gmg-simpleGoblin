@@ -1,0 +1,75 @@
+/**************
+ * containers *
+ **************/
+
+.entry-wrapper,
+.entry-content {
+    max-width: none;
+    width: auto;
+}
+
+.mediagoblin_content {
+    padding-left: 40px;
+}
+
+/***********
+ * gallery *
+ ***********/
+
+ul.thumb_gallery {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.thumb_gallery li {
+    background: #eee;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 0 1 auto;
+    padding: 5px;
+    text-align: center;
+}
+
+.thumb_gallery li:hover {
+    background: #dadada;
+    border-color: #ccc;
+}
+
+/*********
+ * media *
+ *********/
+
+figure.media_pane a img {
+    opacity: 1;
+}
+
+figure.media_pane a img:hover {
+    box-shadow: none;
+    transform: none;
+}
+
+/**************
+ * pagination *
+ **************/
+
+.pagination ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li {
+    display: inline;
+}
+
+/*********
+ * utils *
+ *********/
+
+.clear {
+    clear: both;
+}
