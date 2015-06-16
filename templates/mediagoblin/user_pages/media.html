@@ -39,7 +39,7 @@
     ❖ Browsing media by <a href="{{user_url}}">{{username}}</a>
     {%- endtrans -%}
   </p>
-
+<article class="h-entry">
   <header class="entry-header">
     <!-- tags -->
     {% if media.tags %}
@@ -50,10 +50,13 @@
   </header>
 
   <footer class="entry-meta">
-    <span class="entry-date date published dt-published">
-      <time datetime="{{ media.created.strftime("%Y-%m-%dT%H:%M:%S%Z") }}">
-        <i class="fa fa-calendar-o"></i> 
-        {{ media.created.strftime("%B %d, %Y") }}
+    <img src="//chromic.org/images/bio-photo.png" class="bio-photo" alt="Chimo bio photo">
+    <span>
+      By <a class="h-card p-author" href="http://chromic.org">Chimo</a>
+    </span>
+    <span>
+      <time class="entry-date date published dt-published" datetime="{{ media.created.strftime("%Y-%m-%dT%H:%M:%S%Z") }}">
+        <i class="fa fa-calendar-o"></i> {{ media.created.strftime("%B %d, %Y") }}
       </time>
     </span>
 
@@ -129,38 +132,36 @@
     {% endif %}
   </footer>
 
-  <div class="entry-content">
-    <!-- image-->
-    <figure>
-      {% block mediagoblin_media %}
-        {% set display_media = request.app.public_store.file_url(
-                 media.get_display_media()[1]) %}
-        {# if there's a medium file size, that means the medium size
-         #  isn't the original... so link to the original!
-         #}
-        {% if media.media_files.has_key('medium') %}
-          <a href="{{ request.app.public_store.file_url(
-                        media.media_files['original']) }}">
-            <img class="media_image"
-                 src="{{ display_media }}"
-                 alt="{% trans media_title=media.title -%}
-                        Image for {{ media_title }}{% endtrans %}" />
-          </a>
-        {% else %}
+  <figure class="entry-content e-content">
+    {% block mediagoblin_media %}
+      {% set display_media = request.app.public_store.file_url(
+               media.get_display_media()[1]) %}
+      {# if there's a medium file size, that means the medium size
+       #  isn't the original... so link to the original!
+       #}
+      {% if media.media_files.has_key('medium') %}
+        <a href="{{ request.app.public_store.file_url(
+                      media.media_files['original']) }}">
           <img class="media_image"
                src="{{ display_media }}"
                alt="{% trans media_title=media.title -%}
                       Image for {{ media_title }}{% endtrans %}" />
-        {% endif %}
-      {% endblock %}
+        </a>
+      {% else %}
+        <img class="media_image"
+             src="{{ display_media }}"
+             alt="{% trans media_title=media.title -%}
+                    Image for {{ media_title }}{% endtrans %}" />
+      {% endif %}
+    {% endblock %}
 
-      <figcaption>
-        {% autoescape False %}
-          {{ media.description_html }}
-        {% endautoescape %}
-      </figcaption>
-    </figure>
-  </div>
+    <figcaption class="p-summary">
+      {% autoescape False %}
+        {{ media.description_html }}
+      {% endautoescape %}
+    </figcaption>
+  </figure>
+</article>
 {% endblock %}
 
 {% block comments %}
