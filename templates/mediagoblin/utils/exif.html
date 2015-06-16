@@ -17,13 +17,6 @@
 #}
 
 {% block exif_content %}
-<noscript>
-  <style type="text/css">
-    #exif_additional_info {
-       display: block;
-    }
-  </style>
-</noscript>
 <div id="exif_content">
   {% if app_config['exif_visible']
         and media.media_data
@@ -54,5 +47,5 @@
     </table>
     </div>
   {% endif %}
-</div> <!-- end exif_content div -->
+</div>
 {% endblock %}

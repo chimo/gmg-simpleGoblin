@@ -17,12 +17,12 @@
 #}
 
 {% block license_content -%}
-  <h3>{% trans %}License{% endtrans %}</h3>
-  <p>
+  <!-- <h3>{% trans %}License{% endtrans %}</h3> -->
+  <span>
     {% if media.license %}
       <a href="{{ media.license }}">{{ media.get_license_data().abbreviation }}</a>
     {% else %}
       {% trans %}All rights reserved{% endtrans %}
     {% endif %}
-  </p>
+  </span>
 {% endblock %}

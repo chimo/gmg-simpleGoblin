@@ -25,6 +25,7 @@
 {% block mediagoblin_head %}
 {% template_hook("media_head") %}
 {% endblock mediagoblin_head %}
+
 {% block mediagoblin_content %}
 
 <!-- TODO: move inline styles to stylesheet -->
@@ -39,9 +40,98 @@
     {%- endtrans -%}
   </p>
 
-  <div style="float: left;">
+  <header class="entry-header">
+    <!-- tags -->
+    {% if media.tags %}
+      {% include "mediagoblin/utils/tags.html" %}
+    {% endif %}
+
+    <h1 class="entry-title p-name">{{ media.title }}</h1>
+  </header>
+
+  <footer class="entry-meta">
+    <span class="entry-date date published dt-published">
+      <time datetime="{{ media.created.strftime("%Y-%m-%dT%H:%M:%S%Z") }}">
+        <i class="fa fa-calendar-o"></i> 
+        {{ media.created.strftime("%B %d, %Y") }}
+      </time>
+    </span>
+
+    {% block mediagoblin_after_added_sidebar %}
+    {% endblock %}
+
+    <!-- collections -->
+    {% include "mediagoblin/utils/collections.html" %}
+
+    <!-- report -->
+    {% if app_config.allow_reporting %}
+      {% include "mediagoblin/utils/report.html" %}
+    {% endif %}
+
+    <!-- license -->
+    {% include "mediagoblin/utils/license.html" %}
+
+    <!-- exif -->
+    {% include "mediagoblin/utils/exif.html" %}
+
+    <!-- attachments -->
+    {%- if media.attachment_files|count %}
+      <h3>{% trans %}Attachments{% endtrans %}</h3>
+      <ul>
+        {%- for attachment in media.attachment_files %}
+          <li>
+            <a href="{{ request.app.public_store.file_url(attachment.filepath) }}">
+              {{- attachment.name -}}
+            </a>
+          </li>
+        {%- endfor %}
+      </ul>
+    {%- endif %}
+
+    <!-- attachments actions -->
+    {%- if app_config['allow_attachments']
+          and request.user
+          and (media.uploader == request.user.id
+               or request.user.has_privilege('admin')) %}
+    {%- if not media.attachment_files|count %}
+      <h3>{% trans %}Attachments{% endtrans %}</h3>
+    {%- endif %}
+    <p>
+      <a href="{{ request.urlgen('mediagoblin.edit.attachments',
+                      user=media.get_uploader.username,
+                      media_id=media.id) }}">
+        {%- trans %}Add attachment{% endtrans -%}
+      </a>
+    </p>
+    {%- endif %}
+
+    {% template_hook("media_sideinfo") %}
+
+    {% block mediagoblin_sidebar %}
+    {% endblock %}
+
+    <!-- actions -->
+    {% if request.user and
+            (media.uploader == request.user.id or
+             request.user.has_privilege('admin')) %}
+      <span>
+          {% set edit_url = request.urlgen('mediagoblin.edit.edit_media',
+                                 user= media.get_uploader.username,
+                                 media_id=media.id) %}
+        <a class="button_action" href="{{ edit_url }}">{% trans %}Edit{% endtrans %}</a>
+      </span>
+      <span>
+          {% set delete_url = request.urlgen('mediagoblin.user_pages.media_confirm_delete',
+                                 user= media.get_uploader.username,
+                                 media_id=media.id) %}
+        <a class="button_action button_warning" href="{{ delete_url }}">{% trans %}Delete{% endtrans %}</a>
+      </span>
+    {% endif %}
+  </footer>
+
+  <div class="entry-content">
     <!-- image-->
-    <figure class="media_pane" style="float: left; margin-right: 20px; padding-top: 0;">
+    <figure>
       {% block mediagoblin_media %}
         {% set display_media = request.app.public_store.file_url(
                  media.get_display_media()[1]) %}
@@ -64,114 +154,24 @@
         {% endif %}
       {% endblock %}
 
-      <figcaption style="max-width: 640px;">
-        <!-- title -->
-        <h2 class="media_title">{{ media.title }}</h2>
-        
-        <!-- desc -->
+      <figcaption>
         {% autoescape False %}
           {{ media.description_html }}
         {% endautoescape %}
       </figcaption>
     </figure>
-      
-    <!-- actions -->
-    {% if request.user and
-            (media.uploader == request.user.id or
-             request.user.has_privilege('admin')) %}
-      <div class="pull-right" style="padding-top:20px;">
-          {% set edit_url = request.urlgen('mediagoblin.edit.edit_media',
-                                 user= media.get_uploader.username,
-                                 media_id=media.id) %}
-        <a class="button_action" href="{{ edit_url }}">{% trans %}Edit{% endtrans %}</a>
-          {% set delete_url = request.urlgen('mediagoblin.user_pages.media_confirm_delete',
-                                 user= media.get_uploader.username,
-                                 media_id=media.id) %}
-        <a class="button_action button_warning" href="{{ delete_url }}">{% trans %}Delete{% endtrans %}</a>
-      </div>
-    {% endif %}
-
-    <!-- sidebar -->
-    <div class="media_sidebar entry-meta">
-      <!-- timestamp -->
-      <h3>{% trans %}Added{% endtrans %}</h3>
-      <p>
-        <span title="{{ media.created.strftime("%I:%M%p %Y-%m-%d") }}">
-          {%- trans formatted_time=timesince(media.created) -%}
-            {{ formatted_time }} ago
-          {%- endtrans -%}
-        </span>
-      </p>
-
-      {% block mediagoblin_after_added_sidebar %}
-      {% endblock %}
-
-      <!-- tags -->
-      {% if media.tags %}
-        {% include "mediagoblin/utils/tags.html" %}
-      {% endif %}
-
-      <!-- collections -->
-      {% include "mediagoblin/utils/collections.html" %}
-
-      <!-- report -->
-      {% if app_config.allow_reporting %}
-        {% include "mediagoblin/utils/report.html" %}
-      {% endif %}
-
-      <!-- license -->
-      {% include "mediagoblin/utils/license.html" %}
-
-      <!-- exif -->
-      {% include "mediagoblin/utils/exif.html" %}
-
-      <!-- attachments -->
-      {%- if media.attachment_files|count %}
-        <h3>{% trans %}Attachments{% endtrans %}</h3>
-        <ul>
-          {%- for attachment in media.attachment_files %}
-            <li>
-              <a href="{{ request.app.public_store.file_url(attachment.filepath) }}">
-                {{- attachment.name -}}
-              </a>
-            </li>
-          {%- endfor %}
-        </ul>
-      {%- endif %}
-      
-      <!-- attachments actions -->
-      {%- if app_config['allow_attachments']
-          and request.user
-          and (media.uploader == request.user.id
-               or request.user.has_privilege('admin')) %}
-        {%- if not media.attachment_files|count %}
-          <h3>{% trans %}Attachments{% endtrans %}</h3>
-        {%- endif %}
-        <p>
-          <a href="{{ request.urlgen('mediagoblin.edit.attachments',
-                      user=media.get_uploader.username,
-                      media_id=media.id) }}">
-            {%- trans %}Add attachment{% endtrans -%}
-          </a>
-        </p>
-      {%- endif %}
-
-      {% template_hook("media_sideinfo") %}
-
-      {% block mediagoblin_sidebar %}
-      {% endblock %}
-    </div>
-  </div>
-  
-  <!-- comments -->
-  <!-- TODO: check if comments are enabled 1st -->
-  <script data-isso="http://comments.chromic.org/media/" src="http://comments.chromic.org/media/js/embed.min.js"></script>
-  <section id="isso-thread" style="float: left;"></section>
-    
-  <div class="clear"></div>
-    
-  <!-- prev/next -->
-  <div style="text-align: center;">
-    {% include "mediagoblin/utils/prev_next.html" %}
   </div>
 {% endblock %}
+
+{% block comments %}
+  <!-- TODO: check if comments are enabled 1st -->
+  <script data-isso="http://comments.chromic.org/media/" src="http://comments.chromic.org/media/js/embed.min.js"></script>
+  <section id="isso-thread"></section>
+
+  <div class="clear"></div>
+{% endblock %}
+
+{% block pagination %}
+  {% include "mediagoblin/utils/prev_next.html" %}
+{% endblock %}
+

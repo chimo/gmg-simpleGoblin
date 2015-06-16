@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="{{ request.staticdirect('/css/styles.css', 'theme') }}" />
     {% template_hook("head") %}
 
-    <!-- {% block mediagoblin_head %}
-    {% endblock mediagoblin_head %} -->
+    {% block mediagoblin_head %}
+    {% endblock mediagoblin_head %}
   </head>
   <body>
     {% block mediagoblin_body %}
@@ -59,14 +59,6 @@
               <li>
                 <a href="http://fm.chromic.org">fm</a>
               </li>
-              <!-- <li>
-                <a href="/atom/" title="Atom/RSS feed">
-                  <i class="icon-rss"></i> Feed
-                </a>
-                </li> -->
-              <!-- <li class="dosearch">
-                <i class="icon-search"></i> Search
-              </li> -->
             </ul>
           </nav>
         </div>
@@ -78,29 +70,28 @@
       <!-- main -->
       <div id="main" role="main" itemprop="mainContentOfPage">
         <div class="entry-wrapper">
-          <div class="entry-content" itemprop="description">
-            <div class="container">
-              {% include 'mediagoblin/bits/above_content.html' %}
-              <div class="mediagoblin_content">
-                {% include "mediagoblin/utils/messages.html" %}
-                {% block mediagoblin_content %}
-                {% endblock mediagoblin_content %}
-                {% if csrf_token is defined %}
-                  {% template_hook("persona_form") %}
-                {% endif %}
-              </div>
-            </div>
-          </div>
+          {% include 'mediagoblin/bits/above_content.html' %}
+          {% include "mediagoblin/utils/messages.html" %}
+
+          {% block mediagoblin_content %}
+          {% endblock %}
+
+          {% if csrf_token is defined %}
+            {% template_hook("persona_form") %}
+          {% endif %}
         </div>
+
+        {% block comments %}
+        {% endblock %}
+
+        {% block pagination %}
+        {% endblock %}
       </div>
 
-      <!-- footer -->
-      <div class="footer-wrapper">
-        <footer role="contentinfo">
-          {%- include "mediagoblin/bits/base_footer.html" %}
-        </footer>
-      </div>
-    {%- endblock mediagoblin_body %}
+    {%- include "mediagoblin/bits/base_footer.html" %}
+
+    {%- endblock %}
+
     {% include 'mediagoblin/bits/body_end.html' %}
 
     <!-- js -->

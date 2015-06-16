@@ -22,8 +22,14 @@
 {% set feed_url = request.urlgen('mediagoblin.listings.atom_feed') %}
 
 {% block mediagoblin_head -%}
-  {% set feed_url = request.urlgen('mediagoblin.listings.atom_feed') -%}
   <link rel="alternate" type="application/atom+xml" href="{{ feed_url }}">
+
+  <style>
+    .entry-wrapper, .entry-content {
+        max-width: none;
+        width: auto;
+    }
+  </style>
 {%- endblock mediagoblin_head %}
 
 {% block simple_header -%}

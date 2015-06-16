@@ -17,19 +17,44 @@
 #}
 
 {%- block mediagoblin_footer %}
-  <footer>
-    {% trans -%}
-      Powered by <a href="http://mediagoblin.org/" title='Version {{ version }}'>MediaGoblin</a>, a <a href="http://gnu.org/">GNU</a> project.
-    {%- endtrans %}
-    {% trans source_link=app_config['source_link'] -%}
-      Released under the <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">AGPL</a>. <a href="{{ source_link }}">Source code</a> available.
-    {%- endtrans %}
-    {% if app_config['show_tos'] %}
-      <p class="fine_print">
-        <a href="{{ request.urlgen('terms_of_service') }}">
-          {%- trans %}Terms of Service{%- endtrans %}
-        </a>
-      </p>
-    {% endif %}
+
+<div class="footer-wrapper">
+  <footer role="contentinfo" class="entry-wrapper">
+
+    <div>
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/" title="Except where otherwise noted, this work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International license." class="cc-by-sa">
+        <img src="//chromic.org/images/cc.svg" alt="">
+        <img src="//chromic.org/images/by.svg" alt="">
+        <img src="//chromic.org/images/sa.svg" alt="">
+      </a>
+      <br>
+      &copy; 2015 <!-- TODO: don't hardcode this -->
+      <span class="h-card">
+        <a class="p-name u-url" href="http://chromic.org">Chimo</a>.
+        <a class="u-email" href="mailto:chimo@chromic.org"><span class="fa fa-envelope"></span></a>
+      </span>
+      <br>
+      {% trans -%}
+        Powered by <a href="http://mediagoblin.org/" title='Version {{ version }}'>MediaGoblin</a>, a <a href="http://gnu.org/">GNU</a> project.
+      {%- endtrans %}
+      {% trans source_link=app_config['source_link'] -%}
+        Released under the <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">AGPL</a>. <a href="{{ source_link }}">Source code</a> available.
+      {%- endtrans %}
+      {% if app_config['show_tos'] %}
+        <p class="fine_print">
+          <a href="{{ request.urlgen('terms_of_service') }}">
+            {%- trans %}Terms of Service{%- endtrans %}
+          </a>
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="social-icons">
+      <a rel="me" href="http://twitter.com/chim0" title="Chimo on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
+      <a rel="me" href="http://github.com/chimo" title="Chimo on Github" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
+      <a class="gs" rel="me" href="http://sn.chromic.org/chimo" title="Chimo on GNU social" target="_blank"><img src="//chromic.org/images/gs.png" alt=""></a>
+    </div>
   </footer>
+</div>
+
 {%- endblock mediagoblin_footer -%}

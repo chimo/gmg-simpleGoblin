@@ -21,28 +21,18 @@
 {% set next_entry_url = media.url_to_next(request.urlgen) %}
 
 {% if prev_entry_url or next_entry_url %}
-  <div class="navigation">
+  <nav class="pagination">
    {# There are no previous entries for the very first media entry #}
     {% if prev_entry_url %}
-      <a class="navigation_button navigation_left" href="{{ prev_entry_url }}">
+      <a class="btn" rel="prev" href="{{ prev_entry_url }}">
         &larr; {% trans %}newer{% endtrans %}
       </a>
-    {% else %}
-      {# This is the first entry. display greyed-out 'previous' image #}
-      <span class="navigation_button navigation_left">
-        &larr; {% trans %}newer{% endtrans %}
-      </span>
     {% endif %}
-    {# Likewise, this could be the very last media entry #}
+
     {% if next_entry_url %}
-      <a class="navigation_button navigation_right" href="{{ next_entry_url }}">
+      <a class="btn" rel="next" href="{{ next_entry_url }}">
         {% trans %}older{% endtrans %} &rarr;
       </a>
-    {% else %}
-      {# This is the last entry. display greyed-out 'next' image #}
-      <span class="navigation_button navigation_right">
-        {% trans %}older{% endtrans %} &rarr;
-      </span>
     {% endif %}
-  </div>
+  </nav>
 {% endif %}
