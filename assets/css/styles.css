@@ -30,6 +30,7 @@ ul.thumb_gallery li {
     border: 1px solid #ddd;
     border-radius: 5px;
     flex: 0 1 auto;
+    margin: 5px;
     padding: 5px;
     text-align: center;
 }
@@ -73,3 +74,4 @@ figure.media_pane a img:hover {
 .clear {
     clear: both;
 }
+
