@@ -75,3 +75,36 @@ figure.media_pane a img:hover {
     clear: both;
 }
 
+/********
+ * exif *
+ ********/
+
+.exif {
+    margin: 0;
+    padding: 8px 0;
+}
+
+.exif[open] {
+    padding-bottom: 0;
+}
+
+.exif dl {
+    margin: 0;
+}
+
+.exif dt {
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+.exif,
+.exif dd {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding-bottom: 8px;
+}
+
+.exif dd:last-child {
+    border-bottom: 0;
+}
+

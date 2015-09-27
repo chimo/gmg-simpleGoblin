@@ -17,35 +17,26 @@
 #}
 
 {% block exif_content %}
-<div id="exif_content">
   {% if app_config['exif_visible']
         and media.media_data
         and media.media_data.exif_all is defined
         and media.media_data.exif_all %}
-    <h3>Camera Information</h3>
-    <table id="exif_camera_information">
-      <tbody>
-      {% for label, value in media.exif_display_data_short().iteritems() %}
-      <tr>
-        <td class="col1">{{ label }}</td>
-        <td>{{ value }}</td>
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    <h3 id="exif_additional_info_button" class="button_action">
-      Additional Information
-    </h3>
-    <div id="exif_additional_info">
-    <table class="exif_info">
-      {% for key, tag in media.exif_display_iter() %}
-        <tr>
-          <td class="col1">{{ key }}</td>
-          <td>{{ tag.printable }}</td>
-        </tr>
-      {% endfor %}
-    </table>
-    </div>
+
+<details class="exif">
+    <summary>Metadata</summary>
+        <dl>
+            {% for label, value in media.exif_display_data_short().iteritems() %}
+            <dt>{{ label }}</dt>
+            <dd>{{ value }}</dd>
+            {% endfor %}
+
+            {% for key, tag in media.exif_display_iter() %}
+            <dt>{{ key }}</dt>
+            <dd>{{ tag.printable }}</dd>
+            {% endfor %}
+        </dl>
+    </figure>
+</details>
+
   {% endif %}
-</div>
 {% endblock %}

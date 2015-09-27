@@ -1,0 +1,8 @@
+details, summary { display: block; /*border: 1px solid #666; padding: 1em;*/ }
+summary { cursor: pointer; }
+/*summary:hover, summary:focus { background: #ddd; } */
+.no-details details > * { display: none; }
+.no-details details > summary:before { float: left; width: 20px; content: '► '; }
+.no-details details.open > summary:before { content: '▼ '; }
+.no-details details summary { display: block; }
+

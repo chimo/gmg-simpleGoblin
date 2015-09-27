@@ -29,6 +29,10 @@
 
     <link rel="stylesheet" href="//chromic.org/assets/css/main.css" />
     <link rel="stylesheet" href="{{ request.staticdirect('/css/styles.css', 'theme') }}" />
+    <link rel="stylesheet" href="{{ request.staticdirect('/extlib/details-polyfill/css/details.css', 'theme') }}" />
+
+    <script src="//chromic.org/assets/js/vendor/modernizr-custom.min.js"></script>
+
     {% template_hook("head") %}
 
     {% block mediagoblin_head %}
@@ -39,7 +43,7 @@
       {% block mediagoblin_header %}
         <!-- navigation -->
         <div class="navigation-wrapper">
-          <nav role="navigation" id="site-nav" class="animated drop" itemscope itemtype="http://schema.org/SiteNavigationElement">
+          <nav role="navigation" id="site-nav" class="animated drop">
             <ul>
               <li>
                  <a href="http://chromic.org/about">About</a>
@@ -68,7 +72,7 @@
       {% endblock %}
 
       <!-- main -->
-      <div id="main" role="main" itemprop="mainContentOfPage">
+      <div id="main" role="main">
         <div class="entry-wrapper">
           {% include 'mediagoblin/bits/above_content.html' %}
           {% include "mediagoblin/utils/messages.html" %}
@@ -94,8 +98,11 @@
 
     {% include 'mediagoblin/bits/body_end.html' %}
 
-    <!-- js -->
-    <script src="//chromic.org/assets/js/vendor/jquery-1.9.1.min.js"></script>
+    <!-- libs -->
+    <script src="//chromic.org/assets/js/vendor/jquery.min.js"></script>
+    <script src="{{ request.staticdirect('/extlib/details-polyfill/js/jquery.details.min.js', 'theme') }}"></script>
+
+    <!-- custom -->
     <script src="//chromic.org/assets/js/scripts.min.js"></script>
     <script src="{{ request.staticdirect('/js/simple.js', 'theme') }}"></script>
   </body>
