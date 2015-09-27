@@ -135,45 +135,59 @@
 
   </footer>
 
-  <figure class="entry-content e-content">
-    {% block mediagoblin_media %}
-      {% set display_media = request.app.public_store.file_url(
+  <div class="entry-content e-content">
+    <figure>
+      {% block mediagoblin_media %}
+        {% set display_media = request.app.public_store.file_url(
                media.get_display_media()[1]) %}
-      {# if there's a medium file size, that means the medium size
-       #  isn't the original... so link to the original!
-       #}
-      {% if media.media_files.has_key('medium') %}
-        <a href="{{ request.app.public_store.file_url(
+        {# if there's a medium file size, that means the medium size
+         #  isn't the original... so link to the original!
+         #}
+        {% if media.media_files.has_key('medium') %}
+          <a href="{{ request.app.public_store.file_url(
                       media.media_files['original']) }}">
+            <img class="media_image"
+                 src="{{ display_media }}"
+                 alt="{% trans media_title=media.title -%}
+                      Image for {{ media_title }}{% endtrans %}" />
+          </a>
+        {% else %}
           <img class="media_image"
                src="{{ display_media }}"
                alt="{% trans media_title=media.title -%}
-                      Image for {{ media_title }}{% endtrans %}" />
-        </a>
-      {% else %}
-        <img class="media_image"
-             src="{{ display_media }}"
-             alt="{% trans media_title=media.title -%}
                     Image for {{ media_title }}{% endtrans %}" />
-      {% endif %}
-    {% endblock %}
+        {% endif %}
+      {% endblock %}
 
-    <figcaption class="p-summary">
-      {% autoescape False %}
-        {{ media.description_html }}
-      {% endautoescape %}
-    </figcaption>
-  </figure>
+      <figcaption class="p-summary">
+        {% autoescape False %}
+          {{ media.description_html }}
+        {% endautoescape %}
+      </figcaption>
+    </figure>
+
+    <div class="interactions-section">
+      <hr>
+
+      <h2 id="interactions">Interactions</h2>
+
+      <div id="wm"></div>
+
+      <div id="isso" data-domain="media"></div>
+
+      <h3>Participate</h3>
+
+      <label>Webmention/pingback URL:
+        <input readonly value="{{ request.url }}" style="cursor: text;">
+      </label>
+
+      <h4>Comment form:</h4>
+      <div id="isso-thread" class="isso-thread"></div>
+      <script data-isso-max-comments-top="0" data-isso="//comments.chromic.org/media/" src="//comments.chromic.org/media/js/embed.min.js"></script>
+    </div>
+  </div>
+  {% endblock %}
 </article>
-{% endblock %}
-
-{% block comments %}
-  <!-- TODO: check if comments are enabled 1st -->
-  <script data-isso="http://comments.chromic.org/media/" src="http://comments.chromic.org/media/js/embed.min.js"></script>
-  <section id="isso-thread"></section>
-
-  <div class="clear"></div>
-{% endblock %}
 
 {% block pagination %}
   {% include "mediagoblin/utils/prev_next.html" %}
