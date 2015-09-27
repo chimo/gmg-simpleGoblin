@@ -24,18 +24,17 @@
 
 <details class="exif">
     <summary>Metadata</summary>
-        <dl>
-            {% for label, value in media.exif_display_data_short().iteritems() %}
-            <dt>{{ label }}</dt>
-            <dd>{{ value }}</dd>
-            {% endfor %}
+    <dl>
+        {% for label, value in media.exif_display_data_short().iteritems() %}
+        <dt>{{ label }}</dt>
+        <dd>{{ value }}</dd>
+        {% endfor %}
 
-            {% for key, tag in media.exif_display_iter() %}
-            <dt>{{ key }}</dt>
-            <dd>{{ tag.printable }}</dd>
-            {% endfor %}
-        </dl>
-    </figure>
+        {% for key, tag in media.exif_display_iter() %}
+        <dt>{{ key }}</dt>
+        <dd>{{ tag.printable }}</dd>
+        {% endfor %}
+    </dl>
 </details>
 
   {% endif %}
