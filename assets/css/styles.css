@@ -113,7 +113,7 @@ figure.media_pane a img:hover {
  * map *
  *******/
 
-.map {
+.map > div {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 8px 0;
 }
