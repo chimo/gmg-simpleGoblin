@@ -34,7 +34,11 @@
     <link rel="stylesheet" href="{{ request.staticdirect('/css/styles.css', 'theme') }}" />
     <link rel="stylesheet" href="{{ request.staticdirect('/extlib/details-polyfill/css/details.css', 'theme') }}" />
 
+    <!-- gelocation plugin -->
+    <link rel="stylesheet" href="{{ request.staticdirect('extlib/leaflet/leaflet.css') }}" />
+
     <script src="//chromic.org/assets/js/vendor/modernizr-custom.min.js"></script>
+
 
     {% template_hook("head") %}
 
@@ -104,6 +108,10 @@
     <!-- libs -->
     <script src="//chromic.org/assets/js/vendor/jquery.min.js"></script>
     <script src="{{ request.staticdirect('/extlib/details-polyfill/js/jquery.details.min.js', 'theme') }}"></script>
+
+    <!-- geolocation plugin -->
+    <script src="{{ request.staticdirect('/extlib/leaflet/leaflet.js') }}"></script>
+    <script src="{{ request.staticdirect('/js/geolocation-map.js') }}"></script>
 
     <!-- custom -->
     <script src="//chromic.org/assets/js/scripts.min.js"></script>

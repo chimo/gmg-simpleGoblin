@@ -113,6 +113,14 @@
     {% block mediagoblin_sidebar %}
     {% endblock %}
 
+    {%- set model = media %}
+
+    <div class="map">
+    {% template_hook("location_info") %}
+    </div>
+
+    {% template_hook("media_sideinfo") %}
+
     <!-- actions -->
     {% if request.user and
             (media.uploader == request.user.id or

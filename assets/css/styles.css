@@ -109,3 +109,26 @@ figure.media_pane a img:hover {
     border-bottom: 0;
 }
 
+/*******
+ * map *
+ *******/
+
+.map {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+}
+
+.map p {
+    font-size: 0.75rem;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.map p a {
+    color: rgb(0, 151, 187);
+}
+
+#osm_license_link {
+    display: none;
+}
+
