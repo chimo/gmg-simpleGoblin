@@ -82,6 +82,7 @@ figure.media_pane a img:hover {
 .exif {
     margin: 0;
     padding: 8px 0;
+    text-transform: none;
 }
 
 .exif[open] {
