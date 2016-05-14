@@ -21,6 +21,16 @@
 {% block mediagoblin_head %}
   {{ super() }}
   {% template_hook("image_head") %}
+
+{% set display_media = request.app.public_store.file_url(media.get_display_media()[1]) %}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@chim0">
+<meta name="twitter:url" property="og:url" content="{{ request.url }}">
+<meta name="twitter:title" property="og:title" content="{{ media.title }}">
+<meta name="twitter:description" property="og:description" content="{{ media.description }}">
+<meta name="twitter:image" property="og:image" content="https://media.chromic.org{{ request.app.public_store.file_url(
+	media.media_files['original']) }}">
+
 {% endblock mediagoblin_head %}
 
 {% block mediagoblin_sidebar %}
