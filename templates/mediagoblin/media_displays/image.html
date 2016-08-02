@@ -27,7 +27,7 @@
 <meta name="twitter:site" content="@chim0">
 <meta name="twitter:url" property="og:url" content="{{ request.url }}">
 <meta name="twitter:title" property="og:title" content="{{ media.title }}">
-<meta name="twitter:description" property="og:description" content="{{ media.description }}">
+<meta name="twitter:description" property="og:description" content="{{ media.description_html|striptags }}">
 <meta name="twitter:image" property="og:image" content="https://media.chromic.org{{ request.app.public_store.file_url(
 	media.media_files['original']) }}">
 
