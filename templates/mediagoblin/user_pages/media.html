@@ -143,7 +143,7 @@
 
   </footer>
 
-  <div class="entry-content e-content">
+  <div class="content entry-content e-content">
     <figure>
       {% block mediagoblin_media %}
         {% set display_media = request.app.public_store.file_url(
@@ -155,9 +155,10 @@
           <a href="{{ request.app.public_store.file_url(
                       media.media_files['original']) }}">
             <img class="media_image"
-                 src="{{ display_media }}"
+                 src="{{ request.app.public_store.file_url(
+                    media.media_files['original']) }}"
                  alt="{% trans media_title=media.title -%}
-                      Image for {{ media_title }}{% endtrans %}" />
+                 Image for {{ media_title }}{% endtrans %}" />
           </a>
         {% else %}
           <img class="media_image"
