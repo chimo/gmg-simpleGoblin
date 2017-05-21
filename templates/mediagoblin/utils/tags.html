@@ -23,7 +23,7 @@
         <a class="p-category" href="{{ request.urlgen(
                         'mediagoblin.user_pages.user_tag_gallery',
                         tag=tag['slug'],
-                        user=media.get_uploader.username) }}">{{ tag['name'] }}</a>
+                        user=media.get_actor.username) }}">{{ tag['name'] }}</a>
       </li>
     {% endfor %}
   </ul>

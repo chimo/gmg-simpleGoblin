@@ -34,8 +34,8 @@
   <p class="context">
     {%- trans user_url=request.urlgen(
               'mediagoblin.user_pages.user_home',
-              user=media.get_uploader.username),
-              username=media.get_uploader.username -%}
+              user=media.get_actor.username),
+              username=media.get_actor.username -%}
     ❖ Browsing media by <a href="{{user_url}}">{{username}}</a>
     {%- endtrans -%}
   </p>
@@ -94,14 +94,14 @@
     <!-- attachments actions -->
     {%- if app_config['allow_attachments']
           and request.user
-          and (media.uploader == request.user.id
+          and (media.actor == request.user.id
                or request.user.has_privilege('admin')) %}
     {%- if not media.attachment_files|count %}
       <h3>{% trans %}Attachments{% endtrans %}</h3>
     {%- endif %}
     <p>
       <a href="{{ request.urlgen('mediagoblin.edit.attachments',
-                      user=media.get_uploader.username,
+                      user=media.get_actor.username,
                       media_id=media.id) }}">
         {%- trans %}Add attachment{% endtrans -%}
       </a>
@@ -123,17 +123,17 @@
 
     <!-- actions -->
     {% if request.user and
-            (media.uploader == request.user.id or
+            (media.actor == request.user.id or
              request.user.has_privilege('admin')) %}
       <span>
           {% set edit_url = request.urlgen('mediagoblin.edit.edit_media',
-                                 user= media.get_uploader.username,
+                                 user= media.get_actor.username,
                                  media_id=media.id) %}
         <a class="button_action" href="{{ edit_url }}">{% trans %}Edit{% endtrans %}</a>
       </span>
       <span>
           {% set delete_url = request.urlgen('mediagoblin.user_pages.media_confirm_delete',
-                                 user= media.get_uploader.username,
+                                 user= media.get_actor.username,
                                  media_id=media.id) %}
         <a class="button_action button_warning" href="{{ delete_url }}">{% trans %}Delete{% endtrans %}</a>
       </span>
